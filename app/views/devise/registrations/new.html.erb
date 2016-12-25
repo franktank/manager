@@ -1,5 +1,5 @@
 <h2>Sign up</h2>
-
+<!-- TODO: Switch to simple_form -->
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
@@ -19,6 +19,15 @@
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+
+  <!-- TODO: Add conditional(in a method) in User model, so if recipient of invitation not show? -->
+  <div>
+    <%= f.fields_for :groups do |group_form| %>
+      <%= group_form.label :name, 'Group Name' %><br />
+      <%= group_form.text_field :name  %>
+    <% end %>
   </div>
 
   <div class="actions">
