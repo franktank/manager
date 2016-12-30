@@ -1,7 +1,7 @@
 class Group < ApplicationRecord
   has_many :memberships
   has_many :users, through: :memberships
-  has_one :owner, class_name: "User"
+  belongs_to :owner, class_name: "User", optional: true
 
   validates_presence_of :name
 end

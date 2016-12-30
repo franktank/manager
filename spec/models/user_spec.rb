@@ -13,5 +13,7 @@ RSpec.describe User, type: :model do
   describe "association" do
     it { should have_many(:memberships) }
     it { should have_many(:groups).through(:memberships) }
+    it { should have_many(:owned_groups) }
+    it { should have_many(:roles).through(:memberships) }
   end
 end

@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_many :memberships
   has_many :groups, through: :memberships
+  has_many :owned_groups, foreign_key: "owner_id", class_name: "Group"
+  has_many :roles, through: :memberships
 
   accepts_nested_attributes_for :groups, reject_if: :all_blank, allow_destroy: true
 

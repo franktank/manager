@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Membership, type: :model do
   let (:m) { FactoryGirl.create(:membership) }
-  it { should belong_to(:user) }
-  it { should belong_to(:group) }
-  
+  describe "assocations" do
+    it { should belong_to(:user) }
+    it { should belong_to(:group) }
+    it { should belong_to(:role) }
+  end
   it "has a valid factory" do
     expect(m).to be_valid
   end
