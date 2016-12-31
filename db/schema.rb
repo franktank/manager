@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161226160047) do
+ActiveRecord::Schema.define(version: 20161230163636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20161226160047) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "owner_id"
+    t.index ["owner_id"], name: "index_groups_on_owner_id", using: :btree
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -27,8 +28,32 @@ ActiveRecord::Schema.define(version: 20161226160047) do
     t.integer  "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "role_id"
     t.index ["group_id"], name: "index_memberships_on_group_id", using: :btree
+    t.index ["role_id"], name: "index_memberships_on_role_id", using: :btree
     t.index ["user_id"], name: "index_memberships_on_user_id", using: :btree
+  end
+
+  create_table "permissions", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "role_permissions", force: :cascade do |t|
+    t.integer  "role_id"
+    t.integer  "permission_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["permission_id"], name: "index_role_permissions_on_permission_id", using: :btree
+    t.index ["role_id"], name: "index_role_permissions_on_role_id", using: :btree
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,6 +73,10 @@ ActiveRecord::Schema.define(version: 20161226160047) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "memberships", "groups"
+  add_foreign_key "memberships", "roles"
   add_foreign_key "memberships", "users"
+  add_foreign_key "role_permissions", "permissions"
+  add_foreign_key "role_permissions", "roles"
 end

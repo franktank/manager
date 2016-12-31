@@ -10,8 +10,11 @@ module Mydevise
     def create
       super
       resource_group = self.resource.groups.first
-      resource_group.owner_id = resource.id
+      resource_group.owner = resource
       resource_group.save
+      m = resource.memberships.where(group: resource_group).first
+      m.role = Role.where(name: "admin").first
+      m.save
     end
   end
 end
