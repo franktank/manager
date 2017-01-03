@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
   # Api
   namespace :api do
-    resources :groups, only: [:create]
+    resources :groups, only: [:create, :edit, :update]
   end
+
+  resources :groups, only: [:create, :edit, :update]
+  resources :invites, only: [:new, :create]
 end

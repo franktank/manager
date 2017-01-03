@@ -1,0 +1,6 @@
+<!-- simple_form_for Invite.new? -->
+<%= simple_form_for Invite.new do |f| %>
+  <%= f.hidden_field :group_id, value: params[:id] %>
+  <%= f.input :email %>
+  <%= f.submit 'Send' %>
+<% end %>
