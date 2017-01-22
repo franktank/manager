@@ -23,12 +23,16 @@
 
 
   <!-- TODO: Add conditional(in a method) in User model, so if recipient of invitation not show? -->
-  <div>
-    <%= f.fields_for :groups do |group_form| %>
-      <%= group_form.label :name, 'Group Name' %><br />
-      <%= group_form.text_field :name  %>
-    <% end %>
-  </div>
+  <% if @token != nil %>
+    <%= hidden_field_tag :invite_token, @token %>
+  <% else %>
+    <div>
+      <%= f.fields_for :groups do |group_form| %>
+        <%= group_form.label :name, 'Group Name' %><br />
+        <%= group_form.text_field :name  %>
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit "Sign up" %>

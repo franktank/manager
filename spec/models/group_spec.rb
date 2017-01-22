@@ -12,6 +12,7 @@ RSpec.describe Group, type: :model do
 
   describe "association" do
     it { should have_many(:memberships) }
+    it { should have_many(:invites) }
     it { should have_many(:users).through(:memberships) }
   end
 end
