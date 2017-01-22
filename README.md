@@ -1,6 +1,6 @@
-# hour-manager
+# manager
 
-## Open source to collaborate
+## Open source software for management of groups
 
 If you would like to contribute
 - Open issues for features / bugs
@@ -22,6 +22,7 @@ Ensure merge conflicts are handled, and after finishing, squash commits into a s
 
 ## Current features
 
+Schema:
 - Users have many Groups through Memberships
 - Users have many Roles through Memberships
 - Roles have many Permissions through RolePermissions
